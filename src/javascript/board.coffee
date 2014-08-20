@@ -1,5 +1,7 @@
 _  = require 'underscore'
 Vector2 = require './vector2'
+player = require './player'
+
 
 board =
   WIDTH: window.innerWidth
@@ -16,9 +18,15 @@ module.exports = board
 
 board.initialize = ()->
   document.body.appendChild @canvas
-  @ctx.fillStyle = 'black'
 
-board.drawSquare = (position)->
-  @ctx.fillRect(position.x, position.y, 10, 10)
+board.drawSquare = (position, size)->
+  @ctx.fillRect(position.x, position.y, size, size)
 
+board.collision = (position) ->
+  pixel = @ctx.getImageData(position.x, position.y, 1, 1).data
+  console.log pixel
+  if pixel[0] is 111
+    console.log 'collision'
+    return true
+  return false
 

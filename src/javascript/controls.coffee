@@ -6,20 +6,20 @@ module.exports = controls
 
 
 controls.initialize = ()->
-  offset = new Vector2(0, 0)
   $(document).on 'keydown', (event)->
+    offset = new Vector2(0, 0)
     #up
     if event.keyCode is 87
-      offset.set 0, -10
+      offset.set 0, -player.size
 
     if event.keyCode is 65
-      offset.set -10, 0
+      offset.set -player.size, 0
 
     if event.keyCode is 68
-      offset.set 10, 0
+      offset.set player.size, 0
 
     if event.keyCode is 83
-      offset.set 0, 10
+      offset.set 0, player.size
 
     player.move(offset)
       

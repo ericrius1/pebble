@@ -6,9 +6,13 @@ player = require './player'
 
 board.initialize();
 controls.initialize()
-player.draw()
+# player.draw()
+
+
+
 animate = ->
   requestAnimationFrame animate
+
 
 
 animate();
