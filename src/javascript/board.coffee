@@ -1,6 +1,5 @@
 _  = require 'underscore'
 Vector2 = require './vector2'
-player = require './player'
 
 
 board =
@@ -24,9 +23,8 @@ board.drawSquare = (position, size)->
 
 board.collision = (position) ->
   pixel = @ctx.getImageData(position.x, position.y, 1, 1).data
-  console.log pixel
+  console.log(pixel[0])
   if pixel[0] is 111
-    console.log 'collision'
     return true
   return false
 
