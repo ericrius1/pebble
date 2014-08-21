@@ -1,29 +1,17 @@
 Vector2 = require './vector2'
-board = require './board'
 utils = require './utils'
+_ = require 'underscore'
 
 class Manasite
-  constructor: (@position)->
+  constructor: ()->
+    @board = require './board'
+    @position = new Vector2(_.random(0, @board.WIDTH), _.random(0,@board.HEIGHT))
     @size = 10
     @velocity = new Vector2(1, 0)
-    @prevPos = @position.clone()
-    @tempNewPos = new Vector2(0,0)
-
-  update: ()->
-    @tempNewPos.set(@position.x + @size, @position.y)
-    @position.add(@velocity)
-    if board.collision(@tempNewPos) 
-      console.log 'collision'
-      @velocity.multiplyScalar(-1)
-      return
-    @draw()
 
   draw: ()->
-    board.ctx.fillStyle = 'white'
-    board.drawSquare(@prevPos, @size)
-    board.ctx.fillStyle = utils.rgbToFillStyle(100, 100, 0)
-    board.drawSquare(@position, @size)
-    @prevPos = @position.clone()
+    @board.ctx.fillStyle = utils.rgbToFillStyle(111, 100, 0)
+    @board.ctx.fillRect @position.x, @position.y, @size, @size
 
 
 module.exports = Manasite

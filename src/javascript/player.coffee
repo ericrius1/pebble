@@ -5,17 +5,24 @@ utils = require './utils'
 player =
   size: 10
   position: new Vector2(Math.floor(board.WIDTH/2), Math.floor(board.HEIGHT/2))
+player.prevPos = player.position.clone()
 module.exports = player
 
-board.drawSquare(player.position)
 player.drawBlack = true
 
-player.move = (offset)->
-  tempNewPos = new Vector2().addVectors offset, player.position
-  board.ctx.fillStyle = utils.rgbToFillStyle(111, 0, 100)
-  board.drawSquare(player.position, player.size)
-  player.position = tempNewPos
-  board.drawSquare(player.position, player.size)
+player.move = (event)->
+  player.position.set event.clientX, event.clientY
+  if board.collision(player.position) 
+    console.log 'ARRRR'
+  player.draw()
+  player.prevPos = player.position.clone()
+
+player.draw = ()->
+  board.ctx.beginPath()
+  board.ctx.moveTo(@prevPos.x, @prevPos.y)
+  board.ctx.lineTo(@position.x, @position.y)
+  board.ctx.stroke()
+
 
 
 
